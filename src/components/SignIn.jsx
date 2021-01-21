@@ -1,6 +1,7 @@
 import React from 'react';
 import { Formik } from 'formik';
-import { View, Button, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import * as yup from 'yup';
 
 import FormikTextInput from './FormikTextInput';
 
@@ -10,18 +11,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'stretch',
     margin: 10,
-  },
-  textInputContainer: {
-    borderColor: 'gray',
-    height: 50,
-    marginTop: 5,
-    marginBottom: 5,
-    paddingLeft: 15,
-    paddingRight: 15,
-    borderLeftWidth: 0.5,
-    borderBottomWidth: 0.5,
-    borderRightWidth: 0.5,
-    borderTopWidth: 0.5,
   },
   opacityContainer: {
     alignItems: 'center',
@@ -40,6 +29,15 @@ const initialValues = {
   password: '',
 };
 
+const validationSchema = yup.object().shape({
+  username: yup
+    .string()
+    .required('Username is required'),
+  password: yup
+    .string()
+    .required('Password is required'),
+});
+
 const handleSignIn = values => {
   console.log('username: ', values.username);
   console.log('password: ', values.password);
@@ -51,6 +49,7 @@ const SignIn = () => {
       <Formik 
         initialValues={initialValues}
         onSubmit={handleSignIn}
+        validationSchema={validationSchema}
       >
         {({ handleSubmit }) => <SignInForm onSubmit={handleSubmit}/>}
       </Formik>
@@ -65,13 +64,11 @@ const SignInForm = ({ onSubmit }) => {
         <FormikTextInput
             name='username'
             placeholder='username'
-            style={styles.textInputContainer}
         />
         <FormikTextInput
             name='password'
             placeholder='password'
             secureTextEntry
-            style={styles.textInputContainer}
         />
       <View>
         <TouchableOpacity
