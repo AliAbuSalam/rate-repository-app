@@ -38,3 +38,11 @@ export const SIGN_IN = gql`
     }
   }
 `;
+
+export const CHECK_AUTHORIZED_USER = gql`
+  query CheckLogin{
+    authorizedUser {
+      username
+    } 
+  }
+`;
