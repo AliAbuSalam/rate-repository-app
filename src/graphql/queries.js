@@ -26,3 +26,15 @@ export const GET_REPOSITORIES = gql`
   }
   ${repositoryObject}
 `;
+
+export const SIGN_IN = gql`
+  mutation Authorization($username: String!, $password: String!){
+    authorize(credentials: {
+      username: $username
+      password: $password
+    }){
+      accessToken
+      expiresAt
+    }
+  }
+`;
