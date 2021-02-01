@@ -31,12 +31,13 @@ const Main = () => {
 
   return(
     <View style={styles.container}>
-      <AppBar userLoggedIn={userLoggedIn} setUserLoggedIn={setUserLoggedIn}/>
       <Switch>
         <Route path='/login' exact>
+          <AppBar userLoggedIn={userLoggedIn} setUserLoggedIn={setUserLoggedIn}/>
           <SignIn setUserLoggedIn={setUserLoggedIn} />
         </Route>
         <Route path='/' exact>
+          <AppBar userLoggedIn={userLoggedIn} setUserLoggedIn={setUserLoggedIn}/>
           <RepositoryList />
         </Route>
         
