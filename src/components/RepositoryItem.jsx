@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
 
 const RepositoryItem = ({ item }) => {
   return(
-    <View style={styles.parentContainer}>
+    <View style={styles.parentContainer} testID='repositoryItem'>
       <DescriptionComponent
         imageSource={item.ownerAvatarUrl}
         title={item.fullName}
@@ -81,11 +81,13 @@ const DescriptionComponent = ({ imageSource, title, description, language }) => 
       <View style={styles.titleAndDescriptionContainer}>
         <Text
           fontWeight='bold'
+          testID='fullNameText'
         >
           {title}
         </Text>
         <Text
           color='textSecondary'
+          testID='descriptionText'
         >
           {description}
         </Text>
@@ -93,6 +95,7 @@ const DescriptionComponent = ({ imageSource, title, description, language }) => 
           <Text
             background='blue'
             style={styles.language}
+            testID='languageText'
           >
             {language}
           </Text>
@@ -106,10 +109,10 @@ const DescriptionComponent = ({ imageSource, title, description, language }) => 
 const StatsComponent = ({ stars, forks, reviews, rating }) => {
   return(
     <View style={styles.statContainer}>
-      <StatIndividualComponent statName='Stars' statCount={stars}/>
-      <StatIndividualComponent statName='Forks' statCount={forks}/>
-      <StatIndividualComponent statName='Reviews' statCount={reviews}/>
-      <StatIndividualComponent statName='Rating' statCount={rating}/>
+      <StatIndividualComponent statName='Stars' statCount={stars} />
+      <StatIndividualComponent statName='Forks' statCount={forks} />
+      <StatIndividualComponent statName='Reviews' statCount={reviews} />
+      <StatIndividualComponent statName='Rating' statCount={rating} />
     </View>
   );
 };
@@ -117,7 +120,7 @@ const StatsComponent = ({ stars, forks, reviews, rating }) => {
 const StatIndividualComponent = ({ statName, statCount}) => {
   return(
     <View style={styles.statIndividualContainer}>
-      <Text fontWeight='bold'>{numberConverter(statCount)}</Text>
+      <Text fontWeight='bold' testID={`${statName}Count`}>{numberConverter(statCount)}</Text>
       <Text color='textSecondary'>{statName}</Text>
     </View>
   );

@@ -41,7 +41,6 @@ const validationSchema = yup.object().shape({
 });
 
 
-
 const SignIn = () => {
   const [signIn] = useSignIn();
   const history = useHistory();
@@ -62,8 +61,14 @@ const SignIn = () => {
   };
 
   return(
+    <SignInContainer handleSignIn={handleSignIn}/>
+  );
+};
+
+export const SignInContainer = ({ handleSignIn}) => {
+  return(
     <View>
-      <Formik 
+      <Formik
         initialValues={initialValues}
         onSubmit={handleSignIn}
         validationSchema={validationSchema}
@@ -71,7 +76,6 @@ const SignIn = () => {
         {({ handleSubmit }) => <SignInForm onSubmit={handleSubmit}/>}
       </Formik>
     </View>
-    
   );
 };
 
@@ -91,6 +95,7 @@ const SignInForm = ({ onSubmit }) => {
         <TouchableOpacity
           onPress={onSubmit}
           style={styles.opacityContainer}
+          testID='signInButton'
         >
           <Text style={styles.text}>Sign in</Text>
         </TouchableOpacity>

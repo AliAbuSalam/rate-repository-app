@@ -17,12 +17,19 @@ const ItemSeparator = () => <View style={styles.separator}/>;
 const RepositoryList = () => {
   const { repositories } = useRepositories();
 
+  return(<RepositoryListContainer repositories={repositories}/>);
+};
+
+export const RepositoryListContainer = ({ repositories }) => {
+  const RepositoryList = repositories;
+
   return(
     <FlatList 
-      data={repositories}
+      data={RepositoryList}
       ItemSeparatorComponent={ItemSeparator}
       renderItem={Item}
       keyExtractor={item => item.id}
+      testID='repositoryList'
     />
   );
 };

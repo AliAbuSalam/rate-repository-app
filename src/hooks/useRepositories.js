@@ -13,7 +13,6 @@ const useRepositories = () => {
     }
   }, [data, loading, setRepositories]);
 
-
   return { repositories, loading, error };
 };
 
