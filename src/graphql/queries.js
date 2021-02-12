@@ -11,6 +11,7 @@ const repositoryObject = gql`
     forksCount
     reviewCount
     ratingAverage
+    url
   }
 `;
 
@@ -22,6 +23,15 @@ export const GET_REPOSITORIES = gql`
           ...RepositoryObject
         }
       }
+    }
+  }
+  ${repositoryObject}
+`;
+
+export const GET_SINGLE_REPOSITORY = gql`
+  query GetRepository($id: ID!){
+    repository(id: $id){
+      ...RepositoryObject
     }
   }
   ${repositoryObject}

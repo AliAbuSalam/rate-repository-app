@@ -1,5 +1,7 @@
 import React from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import  * as WebBrowser from 'expo-web-browser';
+
 import theme from '../theme';
 import Text from './Text';
 
@@ -45,12 +47,41 @@ const styles = StyleSheet.create({
   },
   language: {
     padding: 5
+  },
+  button: {
+    backgroundColor: theme.colors.primary,
+    padding: 5,
+    alignItems: 'center',
+    margin: 5,
+  },
+  buttonText: {
+    color: theme.colors.textWhite,
+    fontSize: theme.fontSizes.subheading
   }
 });
 
-const RepositoryItem = ({ item }) => {
+const RepositoryItem = ({ item, handlePress }) => {
   return(
-    <View style={styles.parentContainer} testID='repositoryItem'>
+    <TouchableOpacity
+      delayPressIn='50'
+      onPress={() => handlePress(item.id)}
+    >
+      <RepositoryItemContainer item={item}/>
+    </TouchableOpacity>
+  );
+};
+
+export const RepositoryItemContainer = ({ item, singleView = false }) => {
+
+  const openLink = () => {
+    WebBrowser.openBrowserAsync(item.url);
+  };
+
+  return(
+    <View
+      style={styles.parentContainer} 
+      testID='repositoryItem'
+    >
       <DescriptionComponent
         imageSource={item.ownerAvatarUrl}
         title={item.fullName}
@@ -63,6 +94,9 @@ const RepositoryItem = ({ item }) => {
         reviews={item.reviewCount}
         rating={item.ratingAverage}
       />
+      {singleView ? 
+        <ButtonComponent onPress={openLink}/>
+         : <></>}
     </View>
   );
 };
@@ -123,6 +157,14 @@ const StatIndividualComponent = ({ statName, statCount}) => {
       <Text fontWeight='bold' testID={`${statName}Count`}>{numberConverter(statCount)}</Text>
       <Text color='textSecondary'>{statName}</Text>
     </View>
+  );
+};
+
+const ButtonComponent = ({ onPress }) => {
+  return(
+    <TouchableOpacity style={styles.button} activeOpacity={0.8} onPress={onPress}>
+      <Text style={styles.buttonText}>Open in Github</Text>
+    </TouchableOpacity>
   );
 };
 

@@ -3,7 +3,8 @@ import { StyleSheet, View } from 'react-native';
 import { Route, Switch, Redirect } from 'react-router-native';
 
 import RepositoryList from './RepositoryList';
-import AppBar from './AppBar';
+import RepositorySingle from './RepositorySingle';
+import ApplicationBar from './AppBar';
 import SignIn from './SignIn';
 import AuthStorageContext from '../contexts/AuthStorageContext';
 
@@ -24,20 +25,25 @@ const Main = () => {
       if(token){
         setUserLoggedIn(token);
       }
-      console.log('useEffect in main token: ', token);
     }
     checkUserLoggedIn();
   }, [userLoggedIn]);
+
+  const AppBar = () => <ApplicationBar userLoggedIn={userLoggedIn} setUserLoggedIn={setUserLoggedIn}/>;
 
   return(
     <View style={styles.container}>
       <Switch>
         <Route path='/login' exact>
-          <AppBar userLoggedIn={userLoggedIn} setUserLoggedIn={setUserLoggedIn}/>
+          <AppBar />
           <SignIn setUserLoggedIn={setUserLoggedIn} />
         </Route>
+        <Route path='/repository/:id' exact>
+          <AppBar />
+          <RepositorySingle />
+        </Route>
         <Route path='/' exact>
-          <AppBar userLoggedIn={userLoggedIn} setUserLoggedIn={setUserLoggedIn}/>
+          <AppBar />
           <RepositoryList />
         </Route>
         
@@ -45,6 +51,6 @@ const Main = () => {
       </Switch>
     </View>
   );
-};
+}; 
 
 export default Main;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Formik } from 'formik';
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
-import { useHistory } from 'react-router-native';
+import { useHistory } from 'react-router-dom';
 import * as yup from 'yup';
 
 import FormikTextInput from './FormikTextInput';
