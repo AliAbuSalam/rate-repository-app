@@ -15,6 +15,18 @@ const repositoryObject = gql`
   }
 `;
 
+const reviewObject = gql`
+  fragment ReviewObject on Review {
+    id
+    user {
+      username
+    }
+    rating
+    createdAt
+    text
+  }
+`;
+
 export const GET_REPOSITORIES = gql`
   query GetRepositories {
     repositories {
@@ -31,10 +43,18 @@ export const GET_REPOSITORIES = gql`
 export const GET_SINGLE_REPOSITORY = gql`
   query GetRepository($id: ID!){
     repository(id: $id){
+      reviews {
+        edges {
+          node {
+            ...ReviewObject
+          }
+        }
+      }
       ...RepositoryObject
     }
   }
   ${repositoryObject}
+  ${reviewObject}
 `;
 
 export const SIGN_IN = gql`

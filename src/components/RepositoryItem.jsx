@@ -48,6 +48,9 @@ const styles = StyleSheet.create({
   language: {
     padding: 5
   },
+  description: {
+    marginRight: 65
+  },
   button: {
     backgroundColor: theme.colors.primary,
     padding: 5,
@@ -122,6 +125,7 @@ const DescriptionComponent = ({ imageSource, title, description, language }) => 
         <Text
           color='textSecondary'
           testID='descriptionText'
+          style={styles.description}
         >
           {description}
         </Text>
