@@ -25,6 +25,10 @@ const theme = {
     normal: '400',
     bold: '700',
   },
+  separator: {
+    height: 10,
+    backgroundColor: '#e1e4e8',
+  },
 };
 
 export default theme;

@@ -7,10 +7,7 @@ import Item from './RepositoryItem';
 import theme from '../theme';
 
 const styles = StyleSheet.create({
-  separator: {
-    height: 10,
-    backgroundColor: theme.colors.background,
-  },
+  separator: theme.separator
 });
 
 const ItemSeparator = () => <View style={styles.separator}/>;
