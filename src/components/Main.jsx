@@ -7,6 +7,7 @@ import RepositorySingle from './RepositorySingle';
 import ApplicationBar from './AppBar';
 import SignIn from './SignIn';
 import AuthStorageContext from '../contexts/AuthStorageContext';
+import ReviewForm from './ReviewForm';
 
 const styles = StyleSheet.create({
   container: {
@@ -41,6 +42,10 @@ const Main = () => {
         <Route path='/repository/:id' exact>
           <AppBar />
           <RepositorySingle />
+        </Route>
+        <Route path='/review' exact>
+          <AppBar />
+          <ReviewForm />
         </Route>
         <Route path='/' exact>
           <AppBar />

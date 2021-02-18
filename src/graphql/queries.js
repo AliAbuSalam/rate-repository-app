@@ -76,3 +76,19 @@ export const CHECK_AUTHORIZED_USER = gql`
     } 
   }
 `;
+
+export const ADD_REVIEW = gql`
+  mutation AddReview($repositoryName: String!, $ownerName: String!, $rating: Int!, $review: String){
+    createReview(review: {
+      repositoryName: $repositoryName
+      ownerName: $ownerName
+      rating: $rating
+      text: $review
+    }){
+      repositoryId
+      rating
+      createdAt
+      text
+    }
+  }
+`;

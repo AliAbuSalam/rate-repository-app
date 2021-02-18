@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { View, StyleSheet, Text, ScrollView } from 'react-native';
 import Constants from 'expo-constants';
-import { Link } from 'react-router-native';
+import { Link, useHistory } from 'react-router-native';
 import { useQuery } from '@apollo/react-hooks';
 
 import theme from '../theme';
@@ -28,6 +28,7 @@ const AppBar = () => {
   const { data } = useQuery(CHECK_AUTHORIZED_USER);
   const authStorage = useContext(AuthStorageContext);
   const apolloClient = useApolloClient();
+  const history = useHistory();
   const [user, setUser] = useState(data);
 
   console.log(data);
@@ -40,6 +41,7 @@ const AppBar = () => {
     await apolloClient.resetStore();
     console.log('token after sign out: ', clearedToken);
     setUser(undefined);
+    history.push('/');
   };
 
   useEffect(() => {
@@ -64,7 +66,10 @@ const AppBar = () => {
         </Link>
         {user
           ? user.authorizedUser
-            ? <LogoutButton />
+            ? <>
+                <ReviewButton />
+                <LogoutButton />
+              </>
             : <LoginButton />
           
           : <LoginButton />
@@ -82,7 +87,13 @@ const LoginButton = () => {
   );
 };
 
-
+const ReviewButton = () => {
+  return(
+    <Link to='/review' >
+      <Text style={styles.text}>Create a review</Text>
+    </Link>
+  );
+};
   
 
 

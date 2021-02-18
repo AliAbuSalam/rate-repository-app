@@ -6,6 +6,7 @@ import * as yup from 'yup';
 
 import FormikTextInput from './FormikTextInput';
 import useSignIn from '../hooks/useSignIn';
+import Theme from '../theme';
 
 const styles = StyleSheet.create({
   formContainer: {
@@ -16,7 +17,7 @@ const styles = StyleSheet.create({
   },
   opacityContainer: {
     alignItems: 'center',
-    backgroundColor: '#0269FE',
+    backgroundColor: Theme.colors.buttonBackground,
     marginTop: 5,
   },
   text: {

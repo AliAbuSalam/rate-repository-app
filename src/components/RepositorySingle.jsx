@@ -15,7 +15,10 @@ const styles = StyleSheet.create({
 
 const RepositorySingle = () => {
   const { id } = useParams();
-  const { loading, error, data } = useQuery(GET_SINGLE_REPOSITORY, { variables: { id }});
+  const { loading, error, data } = useQuery(GET_SINGLE_REPOSITORY, { 
+    variables: { id },
+    fetchPolicy: 'cache-and-network'
+  });
   const [repository, setRepository] = useState();
   const [reviews, setReviews] = useState();
 
