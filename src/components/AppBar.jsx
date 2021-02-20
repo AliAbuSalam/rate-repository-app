@@ -58,6 +58,20 @@ const AppBar = () => {
     );
   };
 
+  const VisibleWhileLoggedIn = () => (
+    <>
+      <ReviewButton />
+      <LogoutButton />
+    </>
+  );
+  
+  const VisibleWhileLoggedOut = () => (
+    <>
+      <LoginButton />
+      <SignUpButton />
+    </>
+  );
+
   return(
     <View style={styles.container}>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -66,13 +80,10 @@ const AppBar = () => {
         </Link>
         {user
           ? user.authorizedUser
-            ? <>
-                <ReviewButton />
-                <LogoutButton />
-              </>
-            : <LoginButton />
+            ? <VisibleWhileLoggedIn />
+            : <VisibleWhileLoggedOut />
           
-          : <LoginButton />
+          : <VisibleWhileLoggedOut />
         }
       </ScrollView>
     </View>
@@ -94,7 +105,12 @@ const ReviewButton = () => {
     </Link>
   );
 };
-  
+
+const SignUpButton = () => (
+  <Link to='/signup'>
+    <Text style={styles.text}>Sign up</Text>
+  </Link>
+);
 
 
 export default AppBar;

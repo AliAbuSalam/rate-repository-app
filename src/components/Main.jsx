@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Route, Switch, Redirect } from 'react-router-native';
+import RNPickerSelect from '@react-native-picker/picker';
 
 import RepositoryList from './RepositoryList';
 import RepositorySingle from './RepositorySingle';
@@ -8,6 +9,7 @@ import ApplicationBar from './AppBar';
 import SignIn from './SignIn';
 import AuthStorageContext from '../contexts/AuthStorageContext';
 import ReviewForm from './ReviewForm';
+import SignUp from './SignUp';
 
 const styles = StyleSheet.create({
   container: {
@@ -37,7 +39,12 @@ const Main = () => {
       <Switch>
         <Route path='/login' exact>
           <AppBar />
+          
           <SignIn setUserLoggedIn={setUserLoggedIn} />
+        </Route>
+        <Route path='/signup' exact>
+          <AppBar />
+          <SignUp />
         </Route>
         <Route path='/repository/:id' exact>
           <AppBar />
@@ -49,6 +56,14 @@ const Main = () => {
         </Route>
         <Route path='/' exact>
           <AppBar />
+          <RNPickerSelect 
+            onValueChange={(value) => console.log('change value to: ', value)}
+            items={[
+              { label: 'Latest repository', value: 'latest'},
+              { label: 'Highest rated repository', value: 'highest'},
+              { label: 'Lowest rated repository', value: 'lowest'}
+            ]}
+          />
           <RepositoryList />
         </Route>
         

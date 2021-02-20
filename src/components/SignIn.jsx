@@ -1,12 +1,13 @@
 import React from 'react';
 import { Formik } from 'formik';
-import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { useHistory } from 'react-router-dom';
 import * as yup from 'yup';
 
 import FormikTextInput from './FormikTextInput';
 import useSignIn from '../hooks/useSignIn';
 import Theme from '../theme';
+import Button from './Button';
 
 const styles = StyleSheet.create({
   formContainer: {
@@ -85,21 +86,18 @@ const SignInForm = ({ onSubmit }) => {
     <View style={styles.formContainer}>
         <FormikTextInput
             name='username'
-            placeholder='username'
+            placeholder='Username'
         />
         <FormikTextInput
             name='password'
-            placeholder='password'
+            placeholder='Password'
             secureTextEntry
         />
       <View>
-        <TouchableOpacity
+        <Button 
+          text='Sign in'
           onPress={onSubmit}
-          style={styles.opacityContainer}
-          testID='signInButton'
-        >
-          <Text style={styles.text}>Sign in</Text>
-        </TouchableOpacity>
+        />
       </View>
         
     </View>

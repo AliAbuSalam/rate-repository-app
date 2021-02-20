@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import { Formik } from 'formik';
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import * as yup from 'yup';
 import { useMutation } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-native';
 
 import FormikTextInput from './FormikTextInput';
-import Text from './Text';
 import Theme from '../theme';
 import { ADD_REVIEW } from '../graphql/queries';
+import Button from './Button';
 
 const styles = StyleSheet.create({
   reviewTextInputContainer: {
@@ -103,9 +103,10 @@ const ReviewTextInput = ({ handleSubmit }) => {
         name='review'
         placeholder='Review'
       />
-      <TouchableOpacity onPress={handleSubmit} style={styles.opacityContainer}>
-        <Text style={styles.text} >Create a review</Text>
-      </TouchableOpacity>
+      <Button 
+        onPress={handleSubmit}
+        text='Create a review'
+      />
     </View>
   );
 };
