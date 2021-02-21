@@ -40,6 +40,19 @@ export const GET_REPOSITORIES = gql`
   ${repositoryObject}
 `;
 
+export const GET_REPOSITORIES_SORTED = gql`
+  query GetRepositories($orderBy: AllRepositoriesOrderBy, $orderDirection: OrderDirection){
+    repositories(orderBy: $orderBy, orderDirection: $orderDirection){
+      edges {
+        node{
+          ...RepositoryObject
+        }
+      }
+    }
+  }
+  ${repositoryObject}
+`;
+
 export const GET_SINGLE_REPOSITORY = gql`
   query GetRepository($id: ID!){
     repository(id: $id){

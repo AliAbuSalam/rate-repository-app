@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Route, Switch, Redirect } from 'react-router-native';
-import RNPickerSelect from '@react-native-picker/picker';
 
 import RepositoryList from './RepositoryList';
 import RepositorySingle from './RepositorySingle';
@@ -56,14 +55,6 @@ const Main = () => {
         </Route>
         <Route path='/' exact>
           <AppBar />
-          <RNPickerSelect 
-            onValueChange={(value) => console.log('change value to: ', value)}
-            items={[
-              { label: 'Latest repository', value: 'latest'},
-              { label: 'Highest rated repository', value: 'highest'},
-              { label: 'Lowest rated repository', value: 'lowest'}
-            ]}
-          />
           <RepositoryList />
         </Route>
         

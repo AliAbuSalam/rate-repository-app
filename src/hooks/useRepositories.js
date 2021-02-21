@@ -1,11 +1,18 @@
 import { useState, useEffect } from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery, useLazyQuery } from '@apollo/react-hooks';
 
-import { GET_REPOSITORIES } from '../graphql/queries';
+import { GET_REPOSITORIES, GET_REPOSITORIES_SORTED } from '../graphql/queries';
 
 const useRepositories = () => {
-  const { data, loading, error } = useQuery(GET_REPOSITORIES);
+  const { data, loading } = useQuery(GET_REPOSITORIES);
+  const [repositoriesSorted, { loading: loadingSorted, data: dataSorted }] = useLazyQuery(GET_REPOSITORIES_SORTED);
   const [repositories, setRepositories] = useState();
+
+  useEffect(() => {
+    if(dataSorted && !loadingSorted){
+      setRepositories(dataSorted.repositories.edges.map(edge => edge.node));
+    }
+  }, [dataSorted, loadingSorted, setRepositories]);
 
   useEffect(() => {
     if(data && !loading){
@@ -13,7 +20,7 @@ const useRepositories = () => {
     }
   }, [data, loading, setRepositories]);
 
-  return { repositories, loading, error };
+  return { repositories, lazyRepositories: repositoriesSorted };
 };
 
 export default useRepositories;

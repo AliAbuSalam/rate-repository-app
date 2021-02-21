@@ -9,7 +9,8 @@ const theme = {
     appBarBackground: '#2ADBB0',
     appBarText: '#FFFFFF',
     background: '#e1e4e8',
-    buttonBackground: '#0269FE'
+    buttonBackground: '#0269FE',
+    touchableBackground: '#CFD1D5'
   },
   fontSizes: {
     body: 14,
