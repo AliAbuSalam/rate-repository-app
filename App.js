@@ -1,6 +1,7 @@
 import React from 'react';
 import { NativeRouter } from 'react-router-native';
 import { ApolloProvider } from '@apollo/react-hooks';
+import { Provider as PaperProvider } from 'react-native-paper';
 import Constants from 'expo-constants';
 
 import Main from './src/components/Main';
@@ -16,9 +17,11 @@ const App = () => {
   return(
     <NativeRouter>
       <ApolloProvider client={apolloClient}>
-        <AuthStorageContext.Provider value={authStorage}>
-          <Main />
-        </AuthStorageContext.Provider>
+        <PaperProvider>
+          <AuthStorageContext.Provider value={authStorage}>
+            <Main />
+          </AuthStorageContext.Provider>
+        </PaperProvider>
       </ApolloProvider>
     </NativeRouter>
   );
