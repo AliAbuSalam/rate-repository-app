@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     padding: 10,
     marginBottom: 5,
-    backgroundColor: Theme.colors.touchableBackground
+    marginLeft: 10
   },
   anchorText: {
     fontSize: Theme.fontSizes.subheading,
@@ -28,46 +28,21 @@ const styles = StyleSheet.create({
   }
 });
 
-const SorterComponent = ({ lazyRepositories }) => {
-  const sortingObject = {
-    latestRepositories: {
-      label: 'Latest Repositories',
-      value: {
-        orderBy: 'CREATED_AT',
-        orderDirection: 'DESC'
-      }
-    },
-    highestRepositories: {
-      label: 'Highest Rated Repositories',
-      value: {
-        orderBy: 'RATING_AVERAGE',
-        orderDirection: 'DESC'
-      }
-    },
-    lowestRepositories: {
-      label: 'Lowest Rated Repositories',
-      value: {
-        orderBy: 'RATING_AVERAGE',
-        orderDirection: 'ASC'
-      }
-    }
-  };
-
+const SorterComponent = ({ changeRepositories, sortState, sortingObject }) => {
   const [visible, setVisible] = useState(false);
-  const [sortingOption, setSortingOption] = useState(sortingObject.latestRepositories);
 
   const Anchor = () => (
     <TouchableOpacity onPress={() => setVisible(true)} style={styles.anchor}>
       <Text style={styles.anchorText}>
-          {`${sortingOption.label}...`}
+          {`${sortState.sortingOptions.label}...`}
         </Text>
     </TouchableOpacity>
   );
 
   const MenuItem = ({ object }) => (
     <Menu.Item onPress={() => {
-      setSortingOption(object);
-      lazyRepositories({ variables: object.value});
+      sortState.setSortingOptions(object);
+      changeRepositories({ variables: object.value});
       setVisible(false);
     }} title={object.label}/>
   );

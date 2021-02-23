@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-native';
 
 import useRepositories from '../hooks/useRepositories';
 import Item from './RepositoryItem';
-import SorterComponent from './SorterComponent';
+import RepositoryHeader from './RepositoryHeader';
 import theme from '../theme';
 
 const styles = StyleSheet.create({
@@ -16,7 +16,7 @@ const ItemSeparator = () => <View style={styles.separator}/>;
 const RepositoryList = () => {
   const { repositories, lazyRepositories } = useRepositories();
 
-  return(<RepositoryListContainer repositories={repositories} lazyRepositories={lazyRepositories}/>);
+  return(<RepositoryListContainer repositories={repositories} lazyRepositories={lazyRepositories} />);
 };
 
 export const RepositoryListContainer = ({ repositories, lazyRepositories }) => {
@@ -33,7 +33,7 @@ export const RepositoryListContainer = ({ repositories, lazyRepositories }) => {
       ItemSeparatorComponent={ItemSeparator}
       renderItem={({ item }) => <Item item={item} handlePress={handlePress}/>}
       keyExtractor={item => item.id}
-      ListHeaderComponent={<SorterComponent lazyRepositories={lazyRepositories}/>}
+      ListHeaderComponent={<RepositoryHeader lazyRepositories={lazyRepositories}/>}
       testID='repositoryList'
     />
   );

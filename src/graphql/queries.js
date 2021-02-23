@@ -40,9 +40,9 @@ export const GET_REPOSITORIES = gql`
   ${repositoryObject}
 `;
 
-export const GET_REPOSITORIES_SORTED = gql`
-  query GetRepositories($orderBy: AllRepositoriesOrderBy, $orderDirection: OrderDirection){
-    repositories(orderBy: $orderBy, orderDirection: $orderDirection){
+export const GET_REPOSITORIES_WITH_ARGUMENTS = gql`
+  query GetRepositories($orderBy: AllRepositoriesOrderBy, $orderDirection: OrderDirection, $searchKeyword: String!){
+    repositories(orderBy: $orderBy, orderDirection: $orderDirection, searchKeyword: $searchKeyword){
       edges {
         node{
           ...RepositoryObject
@@ -117,3 +117,4 @@ export const ADD_REVIEW = gql`
     }
   }
 `;
+
