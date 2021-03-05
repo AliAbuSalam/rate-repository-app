@@ -41,8 +41,9 @@ const SorterComponent = ({ changeRepositories, sortState, sortingObject }) => {
 
   const MenuItem = ({ object }) => (
     <Menu.Item onPress={() => {
+      console.log('called: ', object);
       sortState.setSortingOptions(object);
-      changeRepositories({ variables: object.value});
+      changeRepositories(object.label);
       setVisible(false);
     }} title={object.label}/>
   );

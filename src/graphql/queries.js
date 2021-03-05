@@ -28,12 +28,17 @@ const reviewObject = gql`
 `;
 
 export const GET_REPOSITORIES = gql`
-  query GetRepositories {
-    repositories {
+  query GetRepositories($after: String, $first: Int) {
+    repositories(after: $after, first: $first) {
       edges {
         node {
           ...RepositoryObject
         }
+      }
+      pageInfo {
+        startCursor
+        endCursor
+        hasNextPage
       }
     }
   }
@@ -41,12 +46,23 @@ export const GET_REPOSITORIES = gql`
 `;
 
 export const GET_REPOSITORIES_WITH_ARGUMENTS = gql`
-  query GetRepositories($orderBy: AllRepositoriesOrderBy, $orderDirection: OrderDirection, $searchKeyword: String!){
-    repositories(orderBy: $orderBy, orderDirection: $orderDirection, searchKeyword: $searchKeyword){
+  query GetRepositories($orderBy: AllRepositoriesOrderBy, $orderDirection: OrderDirection, $searchKeyword: String!, $after: String, $first: Int){
+    repositories(
+      orderBy: $orderBy, 
+      orderDirection: $orderDirection, 
+      searchKeyword: $searchKeyword
+      first: $first
+      after: $after
+    ){
       edges {
         node{
           ...RepositoryObject
         }
+      }
+      pageInfo {
+        startCursor
+        endCursor
+        hasNextPage
       }
     }
   }

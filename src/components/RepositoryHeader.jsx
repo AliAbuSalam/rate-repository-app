@@ -16,42 +16,21 @@ const styles = StyleSheet.create({
   }
 });
 
-const RepositoryHeader = ({ lazyRepositories }) => {
-  const [searchQuery, setSearchQuery] = useState('');
+const RepositoryHeader = ({ lazyRepositories, searchBarObject }) => {
 
   const sortingObject = {
     latestRepositories: {
-      label: 'Latest Repositories',
-      value: {
-        orderBy: 'CREATED_AT',
-        orderDirection: 'DESC',
-        searchKeyword: searchQuery
-      }
+      label: 'Latest Repositories'
     },
     highestRepositories: {
-      label: 'Highest Rated Repositories',
-      value: {
-        orderBy: 'RATING_AVERAGE',
-        orderDirection: 'DESC',
-        searchKeyword: searchQuery
-      }
+      label: 'Highest Rated Repositories'
     },
     lowestRepositories: {
-      label: 'Lowest Rated Repositories',
-      value: {
-        orderBy: 'RATING_AVERAGE',
-        orderDirection: 'ASC',
-        searchKeyword: searchQuery
-      }
+      label: 'Lowest Rated Repositories'
     }
   };
 
   const [sortingOptions, setSortingOptions] = useState(sortingObject.latestRepositories);
-  
-  const searchState = {
-    searchQuery,
-    setSearchQuery
-  };
 
   const sortState = {
     sortingOptions,
@@ -60,7 +39,11 @@ const RepositoryHeader = ({ lazyRepositories }) => {
 
   return(
     <View style={styles.container}>
-      <SearchBar searchState={searchState} sortingOptions={sortingOptions} changeRepositories={lazyRepositories} style={styles.searchBar}/>
+      <SearchBar 
+        searchState={searchBarObject} 
+        sortingOptions={sortingOptions} 
+        style={styles.searchBar}
+      />
       <SorterComponent sortState={sortState} sortingObject={sortingObject} changeRepositories={lazyRepositories}/>
     </View>
   );
