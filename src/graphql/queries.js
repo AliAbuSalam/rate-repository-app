@@ -70,13 +70,21 @@ export const GET_REPOSITORIES_WITH_ARGUMENTS = gql`
 `;
 
 export const GET_SINGLE_REPOSITORY = gql`
-  query GetRepository($id: ID!){
+  query GetRepository($id: ID!, $first: Int, $after: String){
     repository(id: $id){
-      reviews {
+      reviews(
+        first: $first
+        after: $after
+      ) {
         edges {
           node {
             ...ReviewObject
           }
+        }
+        pageInfo {
+          startCursor
+          endCursor
+          hasNextPage
         }
       }
       ...RepositoryObject

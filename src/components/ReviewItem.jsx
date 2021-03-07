@@ -38,7 +38,6 @@ const styles = StyleSheet.create({
 
 
 const ReviewItem = ({ item }) => {
-  console.log('item: ', item);
 
   return(
     <View style={styles.reviewContainer}>

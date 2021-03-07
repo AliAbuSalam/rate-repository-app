@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-native';
-import { useQuery } from '@apollo/react-hooks';
 import { FlatList, View, StyleSheet } from 'react-native';
 
-import { GET_SINGLE_REPOSITORY } from '../graphql/queries';
 import Text from './Text';
 import Theme from '../theme';
 import { RepositoryItemContainer } from './RepositoryItem';
 import ReviewItem from './ReviewItem';
+import useRepository from '../hooks/useRepositorySingle';
 
 const styles = StyleSheet.create({
   separator: Theme.separator
@@ -15,41 +14,25 @@ const styles = StyleSheet.create({
 
 const RepositorySingle = () => {
   const { id } = useParams();
-  const { loading, error, data } = useQuery(GET_SINGLE_REPOSITORY, { 
-    variables: { id },
-    fetchPolicy: 'cache-and-network'
+  const { repository, reviews, error, fetchMore } = useRepository({
+    id,
+    first: 5
   });
-  const [repository, setRepository] = useState();
-  const [reviews, setReviews] = useState();
 
-  useEffect(() => {
-    if(!loading && data){
-      console.log('Single repository\'s data: ', data);
-      const notAllowedKeys = [
-        'reviews'
-      ];
-      const singleRepository = Object.keys(data.repository)
-        .filter((key) => !notAllowedKeys.includes(key))
-        .reduce((obj, allowedKey) => {
-          obj[allowedKey] = data.repository[allowedKey];
-          return obj;
-        }, {});
-      
-      const reviewsArray = data.repository.reviews.edges.map(edge => edge.node);
-      console.log('reviewsArray: ', reviewsArray);
-      setRepository(singleRepository);
-      setReviews(reviewsArray);
-    }
-  }, [loading, data]);
-  
+  const handleOnEndReached = () => {
+    fetchMore();
+  };
+
   if(repository){
     return(
-      <FlatList 
+      <FlatList
         data={reviews}
         renderItem={ReviewItem}
         keyExtractor={item => item.id}
         ListHeaderComponent={() => <RepositoryItemContainer item={repository} singleView={true}/>}
         ItemSeparatorComponent={ItemSeparator}
+        onEndReached={handleOnEndReached}
+        onEndReachedThreshold={0.5}
       />
     );
   } else if(!repository && error){
