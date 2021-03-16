@@ -9,6 +9,7 @@ import SignIn from './SignIn';
 import AuthStorageContext from '../contexts/AuthStorageContext';
 import ReviewForm from './ReviewForm';
 import SignUp from './SignUp';
+import MyReviews from './MyReviews';
 
 const styles = StyleSheet.create({
   container: {
@@ -38,7 +39,6 @@ const Main = () => {
       <Switch>
         <Route path='/login' exact>
           <AppBar />
-          
           <SignIn setUserLoggedIn={setUserLoggedIn} />
         </Route>
         <Route path='/signup' exact>
@@ -53,11 +53,14 @@ const Main = () => {
           <AppBar />
           <ReviewForm />
         </Route>
+        <Route path='/myreviews' exact>
+          <AppBar />
+          <MyReviews />
+        </Route>
         <Route path='/' exact>
           <AppBar />
           <RepositoryList />
         </Route>
-        
         <Redirect to='/' />
       </Switch>
     </View>

@@ -69,7 +69,7 @@ const useRepositorySingle = (variables) => {
     repository,
     error,
     reviews,
-    fetchMore: handleFetchMore
+    fetchMore: handleFetchMore,
   });
 };
 

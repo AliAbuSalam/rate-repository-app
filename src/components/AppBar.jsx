@@ -61,6 +61,7 @@ const AppBar = () => {
   const VisibleWhileLoggedIn = () => (
     <>
       <ReviewButton />
+      <MyReviewButton />
       <LogoutButton />
     </>
   );
@@ -102,6 +103,14 @@ const ReviewButton = () => {
   return(
     <Link to='/review' >
       <Text style={styles.text}>Create a review</Text>
+    </Link>
+  );
+};
+
+const MyReviewButton = () => {
+  return(
+    <Link to='/myreviews'>
+      <Text style={styles.text}>My reviews</Text>
     </Link>
   );
 };

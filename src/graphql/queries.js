@@ -21,6 +21,10 @@ const reviewObject = gql`
     user {
       username
     }
+    repository @include(if: $myReview){
+      id
+      name
+    }
     rating
     createdAt
     text
@@ -70,7 +74,7 @@ export const GET_REPOSITORIES_WITH_ARGUMENTS = gql`
 `;
 
 export const GET_SINGLE_REPOSITORY = gql`
-  query GetRepository($id: ID!, $first: Int, $after: String){
+  query GetRepository($id: ID!, $first: Int, $after: String, $myReview: Boolean = false){
     repository(id: $id){
       reviews(
         first: $first
@@ -119,11 +123,19 @@ export const SIGN_UP = gql`
 `;
 
 export const CHECK_AUTHORIZED_USER = gql`
-  query CheckLogin{
+  query CheckLogin($getReview: Boolean = false, $myReview: Boolean = false){
     authorizedUser {
       username
+      reviews @include(if: $getReview) {
+        edges {
+          node {
+            ...ReviewObject
+          }
+        }
+      }
     } 
   }
+  ${reviewObject}
 `;
 
 export const ADD_REVIEW = gql`
@@ -142,3 +154,8 @@ export const ADD_REVIEW = gql`
   }
 `;
 
+export const DELETE_REVIEW = gql`
+  mutation DeleteReview($id: ID!){
+    deleteReview(id: $id)
+  }
+`;
